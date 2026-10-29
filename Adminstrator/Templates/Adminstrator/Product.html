@@ -1,0 +1,142 @@
+{% extends 'Adminstrator/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    form {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    table tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    table tr:hover {
+        background: #f1f1f1;
+    }
+
+    select, input[type="text"], input[type="number"], textarea, input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    select:focus, input:focus, textarea:focus {
+        border-color: #007bff;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input[type="submit"], input[type="reset"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    input[type="reset"] {
+        background: #6c757d;
+    }
+
+    input[type="submit"]:hover {
+        background: #0056b3;
+    }
+
+    input[type="reset"]:hover {
+        background: #5a6268;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #333;
+    }
+</style>
+
+</head>
+<body>
+    <form>
+        <table border="2px">
+            <tr>
+                <td>Category Name</td>
+                <td><select name="sel_cat">
+                    <option value="sel">--select--</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Smart TV">Smart TV</option>
+
+                </select>
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    Subcategory
+                </td>
+                <td><select name="sel_sub">
+                    <option value="sel">--select--</option>
+                    <option value="1"></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Product Name</td>
+                <td><input type="text" name="txt_pname"></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="number" name="num_price"></td>
+            </tr>
+            <tr>
+                <td>Details</td>
+                <td><textarea name="txt_details" rows="6" cols="15"></textarea></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="file_image"</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="btn_submit">
+                    <input type="reset" name="btn_cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+</body>
+</html>
+{% endblock content %}

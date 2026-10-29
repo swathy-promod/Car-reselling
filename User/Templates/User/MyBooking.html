@@ -1,0 +1,79 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+</head>
+
+<body>
+
+    <h2 align="center">My Vehicle Bookings</h2>
+    <br>
+
+    <table border="1" cellpadding="10" cellspacing="0" align="center" width="90%">
+        <thead>
+            <tr bgcolor="#f2f2f2">
+                <th>SNo</th>
+                <th>Vehicle Photo</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Dealer Name</th>
+                <th>Contact</th>
+                <th>Date</th>
+                <td>amount</td>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in bookings %}
+            <tr>
+                <td align="center">{{ forloop.counter }}</td>
+                <td align="center">
+                    {% if i.vehicle.vehicle_photo %}
+                    <img src="{{ i.vehicle.vehicle_photo.url }}" alt="Vehicle" width="120">
+                    {% else %}
+                    No Photo
+                    {% endif %}
+                </td>
+                <td>{{ i.vehicle.vehicle_company.company_name }}</td>
+                <td>{{ i.vehicle.vehicle_model_name.model_name }}</td>
+
+                <td>{{ i.vehicle.dealer.dealer_name }}</td>
+                <td>{{ i.vehicle.dealer.dealer_contact }}</td>
+
+                <td align="center">{{ i.booking_date|date:"d-m-Y" }}</td>
+                <td align="center">{{ i.vehicle.vehicle_price }}</td>
+                <td align="center">
+                    {% if i.booking_status == 0 %}
+                    <span class="status-pending">Pending</span>
+
+                    {% elif i.booking_status == 1 %}
+                    <span class="status-accepted">Accepted</span><br>
+                    <a class="action-btn" href="{% url 'User:payment' i.id %}">Pay</a>
+
+                    {% elif i.booking_status == 2 %}
+                    <span class="status-rejected">Rejected</span>
+
+                    {% elif i.booking_status == 3 %}
+                    <span class="status-paid">Paid ₹ {{i.booking_amount}}</span><br>
+                    <a class="action-btn" href="{% url 'User:rating' i.vehicle.dealer.id %}">Rate</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" align="center">You haven't requested any vehicle bookings yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+
+{% endblock content %}

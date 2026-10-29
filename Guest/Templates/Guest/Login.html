@@ -1,0 +1,117 @@
+{% extends 'Guest/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+  
+    .login-containerjj {
+        width: 400px;
+        margin: 80px auto;
+    }
+
+    .login-box {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .login-title {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: none;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    input[type="submit"] {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 15px;
+    }
+
+    input[type="submit"]:hover {
+        background: #0056b3;
+    }
+
+    .jja {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .jja:hover {
+        color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <form method="POST" class="login-containerjj">
+        {% csrf_token %}
+        <table border="2px" class="login-box">
+            <tr>
+                <td class="login-title">Email</td>
+                <td><input type="email" name="txt_email" required placeholder="Enter The Email"></td>
+                
+            </tr>
+            <tr>
+                <td class="login-title">
+                    Password
+                </td>
+                <td><input type="password" name="txt_password" required placeholder="Enter The Password" ></td>
+            </tr>
+       
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_login" value="Login"></td>
+            </tr>
+            <tr>
+                <td class="login-title" colspan="2"><a class="jja" href="{% url 'Guest:NewUser' %}">Signup</a>&nbsp;&nbsp;|
+                                                    <a class="jja" href="{% url 'Guest:forgotpassword' %}">Forgot Password</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+</body>
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Guest:Login' %}"
+</script>
+{% endif %}
+
+{% endblock %}

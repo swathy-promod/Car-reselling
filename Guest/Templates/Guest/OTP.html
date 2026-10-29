@@ -1,0 +1,83 @@
+{% extends 'Guest/Header.html' %}
+{% block content %}
+
+<style>
+    body{
+        background-color: #f4f6f9;
+        font-family: Arial, sans-serif;
+    }
+
+    .otp-container{
+        width: 400px;
+        margin: 120px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .otp-container h2{
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+    }
+
+    .form-group{
+        margin-bottom: 20px;
+    }
+
+    .form-group label{
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .form-control{
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .btn-submit{
+        width: 100%;
+        padding: 12px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover{
+        background: #218838;
+    }
+</style>
+
+<div class="otp-container">
+    <h2>Verify OTP</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>OTP Number</label>
+            <input type="text" name="txt_otp" class="form-control" placeholder="Enter OTP" required>
+        </div>
+
+        <input type="submit" value="Verify OTP" class="btn-submit">
+    </form>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endif %}
+
+{% endblock %}

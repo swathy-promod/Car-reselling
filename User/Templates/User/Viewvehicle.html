@@ -1,0 +1,53 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Vehicles</title>
+</head>
+<body>
+    <h2 align="center">Explore Available Vehicles</h2>
+    <br>
+
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr bgcolor="#f2f2f2">
+                <th>Sl.No</th>
+                <th>Vehicle Image</th>
+                <th>Brand / Company</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in Viewvehicle %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {% if i.vehicle_photo %}
+                        <img src="{{ i.vehicle_photo.url }}" alt="Vehicle Image" width="120">
+                    {% else %}
+                        No Image Available
+                    {% endif %}
+                </td>
+                <td><b>{{ i.vehicle_company.company_name }}</b></td>
+                <td>{{ i.vehicle_model_name.model_name }}</td>
+                <td>₹{{ i.vehicle_price }}</td>
+                <td>
+                    <a href="{% url 'User:BookVehicle' i.id %}" onclick="return confirm('Do you want to request a booking for this vehicle?');" style="color: green; font-weight: bold; text-decoration: none;">Book Now</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" align="center">No vehicles are currently available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+
+{% endblock content %}

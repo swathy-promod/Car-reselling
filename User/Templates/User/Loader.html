@@ -1,0 +1,85 @@
+{% extends 'User/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+function preventBack(){window.history.forward();}
+setTimeout("preventBack()",0);
+window.onunload=function(){null};
+</script>
+
+<style>
+
+body{
+    margin:0;
+    background:#111;
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+    text-align:center;
+}
+
+/* Loader */
+#loader{
+    position:absolute;
+    left:50%;
+    top:50%;
+    z-index:1;
+    width:120px;
+    height:120px;
+    margin:-76px 0 0 -76px;
+
+    border:16px solid #333;
+    border-radius:50%;
+    border-top:16px solid #fe5b29;
+
+    animation:spin 1.5s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+/* Processing text */
+.processing-text{
+    margin-top:150px;
+    font-size:28px;
+    color:#fe5b29;
+    letter-spacing:1px;
+}
+
+/* Small subtitle */
+.sub-text{
+    margin-top:10px;
+    color:#aaa;
+    font-size:16px;
+}
+
+</style>
+</head>
+
+<body onload="myFunction()">
+
+<h1 class="processing-text">Processing Payment...</h1>
+<p class="sub-text">Please wait while we confirm your transaction</p>
+
+<div id="loader"></div>
+
+<script>
+
+function myFunction(){
+    window.setTimeout(function(){
+        window.location="{% url 'User:paymentsuc' %}";
+    },5000);
+}
+
+</script>
+
+</body>
+</html>
+
+{% endblock content %}

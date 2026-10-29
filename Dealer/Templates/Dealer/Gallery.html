@@ -1,0 +1,130 @@
+{% extends 'Dealer/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        /* padding: 20px; */
+    }
+
+    h2, h3 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background: #fff;
+    }
+
+    table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    input[type="file"]:focus {
+        border-color: #007bff;
+    }
+
+    input[type="submit"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background: #0056b3;
+    }
+
+    img {
+        max-width: 300px;
+        height: auto;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        display: block;
+        margin: auto;
+    }
+</style>
+
+</head>
+<body>
+
+    <h2 align="center">Upload Vehicle Image</h2>
+    <br>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="1" cellpadding="10" cellspacing="0" align="center">
+            <tr>
+                <td><b>Photo</b></td>
+                <td>
+                    <input type="file" name="file_photo" required>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr>
+    <table style="width: 80%;">
+        <tr>
+            <td>SL NO</td>
+            <td>Image</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{i.gallery.url}}" width="300px" alt=""></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% if edit_gallery %}
+    <br><br>
+    <h3 align="center">Selected Image Preview</h3>
+    <table border="1" cellpadding="10%" cellspacing="10%" align="center" width="10%">
+        <tr>
+            <td align="left">
+                <img src="{{ edit_gallery.gallery_photo.url }}" alt="Selected Image" width="100%">
+            </td>
+        </tr>
+    </table>
+    {% endif %}
+
+{% endblock content %}

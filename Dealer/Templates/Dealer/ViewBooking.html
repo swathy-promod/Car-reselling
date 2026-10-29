@@ -1,0 +1,82 @@
+
+{% extends 'Dealer/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+</head>
+
+<body>
+
+    <h2 align="center">My Vehicle Booking</h2>
+    <br>
+
+    <table border="1" cellpadding="10" cellspacing="0" align="center" width="90%">
+        <thead>
+            <tr bgcolor="#f2f2f2">
+                <th>SNo</th>
+                <th>Vehicle Photo</th>
+                <th>Company</th>
+                <th>Model</th>
+                <th>User Name</th>
+                <th>Contact</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in viewbooking %}
+            <tr>
+                <td align="center">{{ forloop.counter }}</td>
+                <td align="center">
+
+                    <img src="{{i.vehicle.vehicle_photo.url}}" alt="Vehicle" width="120">
+
+                </td>
+                <td>{{ i.vehicle.vehicle_company.company_name }}</td>
+                <td>{{ i.vehicle.vehicle_model_name.model_name}}</td>
+
+                <td>{{ i.user.user_name}}</td>
+                <td>{{ i.user.user_contact}}</td>
+
+                <td align="center">{{ i.booking_date|date:"d-m-Y" }}</td>
+
+                <td>
+                    {% if i.booking_status == 0 %}
+                    <a href="{% url 'Dealer:acceptbooking' i.id %}">Accept</a> |
+                    <a href="{% url 'Dealer:rejectbooking' i.id %}">Reject</a>
+                    {% elif i.booking_status == 1 %}
+                    Accepted
+                    {% elif i.booking_status == 3 %}
+
+                    <span class="status-paid">
+                        Paid Advance of {{i.booking_amount}}
+                    </span>
+
+                    {% endif %}
+
+            
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" align="center">You haven't requested any vehicle bookings yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+{% if msg %}
+<script>
+    alert("{{msg}}")
+    window.location="{% url 'Dealer:ViewBooking' %}"
+</script>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,260 @@
+{% extends 'Dealer/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehical</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        /* padding: 20px; */
+    }
+
+    form {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table td {
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    table tr:nth-child(even) {
+        background: #f9f9f9;
+    }
+
+    select, input[type="text"], input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    select:focus, input:focus {
+        border-color: #007bff;
+    }
+
+    input[type="submit"], input[type="reset"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    input[type="reset"] {
+        background: #6c757d;
+    }
+
+    input[type="submit"]:hover {
+        background: #0056b3;
+    }
+
+    input[type="reset"]:hover {
+        background: #5a6268;
+    }
+
+    h1, h2, h3 {
+        text-align: center;
+        color: #333;
+    }
+</style>
+
+</head>
+
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="2px">
+            <tr>
+                <td>Company</td>
+                <td> <select name="sel_company" id="sel_company">
+                        <option>--select--</option>
+                        {% for i in company %}
+                        <option value="{{i.id}}">
+                            {{i.company_name}}</option>
+                        {% endfor %}
+
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Model</td>
+                <td><select name="sel_model" id="sel_model">
+                        <option value="">--select--</option>
+
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Body Type</td>
+                <td><select name="sel_body" id="sel_body">
+                        <option>--select--</option>
+                        {% for i in bodytype %}
+                        <option value="{{i.id}}">
+                            {{i.body_name}}</option>
+                        {% endfor %}</td>
+            </tr>
+            <tr>
+                <td>Seating Capacity</td>
+                <td><select name="sel_seat" id="sel_seat">
+                        <option>--select--</option>
+                        {% for i in seat %}
+                        <option value="{{i.id}}">
+                        {{i.seat_value}}</option>
+                        {% endfor %}</td></td>
+            </tr>
+            <tr>
+                <td>Door Count</td>
+                <td><select name="sel_door" id="sel_door">
+                        <option>--select--</option>
+                        {% for i in door %}
+                        <option value="{{i.id}}">
+                        {{i.door_value}}</option>
+                        {% endfor %}</td></td></td>
+            </tr>
+            <tr>
+                <td>Fuel Type</td>
+                <td><select name="sel_fuel" id="sel_fuel">
+                        <option>--select--</option>
+                        {% for i in fuel %}
+                        <option value="{{i.id}}">
+                        {{i.fuel_value}}</option>
+                        {% endfor %}</td></td></td></td>
+            </tr>
+            <tr>
+                <td>Year</td>
+                <td><select name="sel_year" id="sel_year">
+                        <option>--select--</option>
+                        {% for i in year %}
+                        <option value="{{i.id}}">
+                        {{i.year_value}}</option>
+                        {% endfor %}</td></td></td></td></td>
+            </tr>
+            <tr>
+                <td>Engine Capacity</td>
+                <td><input type="text" name="txt_engcapacity" required placeholder="Enter The Engine Capacity" minlength="4"></td>
+            </tr>
+            <tr>
+                <td>Engine Comfigrations</td>
+                <td><select name="sel_engine" id="sel_engine" required>
+                    <option>--select--</option>
+                    {% for i in engine %}
+                    <option value="{{i.id}}">
+                    {{i.engine_value}}</option>
+                    {% endfor %}
+    
+                </td>
+                
+            </tr>
+            <tr>
+                <td>Power</td>
+                <td><input type="text" name="txt_power" required placeholder="Enter The Power" minlength="4"></td>
+            </tr>
+            <tr>
+                <td>Torque</td>
+                <td><input type="text" name="txt_torque" required  placeholder="Enter TheTorque" minlength="4"></td>
+            </tr>
+            <tr>
+                <td>Transmission</td>
+                <td><select name="sel_transmission" id="sel_transmission">
+                    <option>--select--</option>
+                    {% for i in transmission %}
+                    <option value="{{i.id}}">
+                    {{i.transmission_value}}</option>
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <td>Drive Train</td>
+                <td><select name="sel_drive" id="sel_drive">
+                    <option>--select--</option>
+                    {% for i in drivetrain %}
+                    <option value="{{i.id}}">
+                    {{i.drivetrain_type}}</option>
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <td>Ownership Count</td>
+                <td><select name="sel_ownership" id="sel_ownership">
+                    <option>--select--</option>
+                    {% for i in ownershipcount %}
+                    <option value="{{i.id}}">
+                    {{i.ownershipcount_type}}</option>
+                    {% endfor %}</td></td>
+            </tr>
+            <tr>
+                <td>Mileage</td>
+                <td><input type="text" name="txt_milage" required  placeholder="Enter The Mileage" minlength="1" maxlength="2"></td>
+            </tr>
+            <tr>
+                <td>Odometer</td>
+                <td><input type="text" name="txt_odometer"required placeholder="Enter The Odometer" minlength="4"></td>
+            </tr>
+            <tr>
+                <td>Registration No</td>
+                <td><input type="text" name="txt_registration" required  placeholder="Enter The registration no" minlength="4"></td>
+            </tr>
+            <tr>
+                <td>Vehicle RC</td>
+                <td><input type="file" name="file_vehiclerc"  required accept="image/*"> </td>
+            </tr>
+            <tr>
+                <td>Vehicle Photo</td>
+                <td><input type="file" name="file_vehiclephoto"  required accept="image/*"></td>
+            </tr>
+            <tr>
+                <td>Insurance</td>
+                <td><input type="file" name="file_insurance" required  accept="image/*"></td>
+            </tr>
+            <tr>
+                <td>price</td>
+                <td><input type="number" name="txt_price" required  placeholder="Enter The Price" minlength="5" maxlength="7"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" name="btn_submit">
+                    <input type="reset" name="btn_reset">
+                </td>
+
+            </tr>
+        </table>
+    </form>
+
+
+
+</body>
+
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_company").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Dealer:ajaxmodel' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_model").html(data);
+            },
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends 'Dealer/Header.html' %}
+{% block content %}
+<style>
+
+body{
+    background:#ffffff;
+    /* font-family:'Segoe UI', sans-serif; */
+    color:#fff;
+}
+
+/* Card */
+.prediction-card{
+    width:600px;
+    margin:50px auto;
+    background:#ffffff;
+    color: #000;
+    padding:30px;
+    border-radius:12px;
+    border:2px solid #fe5b29;
+    box-shadow:0 0 20px rgba(254,91,41,0.4);
+}
+
+/* Title */
+.page-title{
+    text-align:center;
+    color:#fe5b29;
+    margin-bottom:25px;
+}
+
+/* Table */
+.form-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.form-table td{
+    padding:12px;
+}
+
+/* Inputs */
+.input-box,
+.select-box{
+    width:100%;
+    padding:10px;
+    border-radius:6px;
+    border:2px solid #fe5b29;
+    background:#111;
+    color:#fff;
+}
+
+/* Button */
+.predict-btn{
+    background:#fe5b29;
+    color:#000;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.predict-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(254,91,41,0.4);
+}
+
+/* Result */
+.result-box{
+    margin-top:15px;
+    padding:10px;
+    border:2px solid #fe5b29;
+    border-radius:8px;
+    text-align:center;
+    font-size:20px;
+    color:#fe5b29;
+}
+.price-value {
+    color: #15ff00; /* or any color you want */
+    /* font-weight: bold;    */
+}
+
+</style>
+
+<title>Price Prediction</title>
+<div class="prediction-card">
+
+<h2 class="page-title">Car Price Prediction</h2>
+
+<form method="post">
+{% csrf_token %}
+
+<table class="form-table">
+
+<tr>
+<td>Brand</td>
+<td>
+<select name="brand" required id="sel_company" class="select-box">
+<option value="">Select Brand</option>
+{% for i in companydata %}
+<option value="{{i.id}}">{{i.company_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Model</td>
+<td>
+<select name="model" required id="sel_model" class="select-box">
+<option value="">Select Model</option>
+{% for i in modeldata %}
+<option value="{{i.id}}">{{i.model_name}}</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Model Year</td>
+<td>
+<select name="sel_modelyear" required class="select-box">
+<option value="">Select Model Year</option>
+{% for i in Modelyear %}
+<option value="{{i.year_value}}">
+{{i.year_value}}
+</option>
+{% endfor %}
+</select>
+</td>
+</tr>
+
+<tr>
+<td>KM Driven</td>
+<td>
+<input type="number" name="km" required class="input-box">
+</td>
+</tr>
+
+<tr>
+<td>Transmission</td>
+<td>
+<select name="sel_Transmission" required class="select-box">
+<option value="">Select Transmission</option>
+<option value="Manual">Manual</option>
+<option value="Automatic">Automatic</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Owner</td>
+<td>
+<select name="owner" required class="select-box">
+<option value="first">First</option>
+<option value="second">Second</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Fuel Type</td>
+<td>
+<select name="fuel" required class="select-box">
+<option>Petrol</option>
+<option>Diesel</option>
+<option>Hybrid/CNG</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<button type="submit" class="predict-btn">
+Predict Price
+</button>
+</td>
+</tr>
+
+</table>
+
+{% if price %}
+<div class="result-box">
+ Predicted Price :<span class="price-value">{{price}}</span>
+</div>
+{% endif %}
+
+</form>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$("#sel_company").change(function () {
+    var did = $(this).val();
+    var ur = "{% url 'Dealer:ajaxmodel' %}"
+
+    $.ajax({
+        url: ur,
+        data: { did: did },
+        success: function (data) {
+            $("#sel_model").html(data);
+        },
+    });
+});
+</script>
+
+{% endblock content %}

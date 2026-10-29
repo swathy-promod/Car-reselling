@@ -1,0 +1,108 @@
+{% extends 'Dealer/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        /* padding: 20px; */
+    }
+
+    form {
+        max-width: 700px;
+        margin: auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    input[type="text"], input[type="email"], textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+        border-color: #007bff;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    input[type="submit"] {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background: #0056b3;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #333;
+    }
+</style>
+
+</head>
+
+<body>
+    <form method="POST">
+        {% csrf_token %}
+    <table border="2px">
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="txt_name" value="{{dealer.dealer_name}}" required placeholder="Enter The Name" minlength="3" title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" name="txt_email" value="{{dealer.dealer_email}}" required placeholder="Enter The Email"></td>
+        </tr>
+        <tr>
+            <td>Contact</td>
+            <td><input type="text" name="txt_contact" value="{{dealer.dealer_contact}}" required placeholder="Enter The Contact" maxlength="10" minlength="10"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><textarea name="txt_address" required placeholder="Enter The Address ">{{dealer.dealer_address}}</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" name="btn_submit"></td>
+        </tr>
+    </table>
+    </form>
+</body>
+
+</html>
+
+{% endblock content %}

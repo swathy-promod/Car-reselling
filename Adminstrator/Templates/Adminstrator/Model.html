@@ -1,0 +1,167 @@
+{% extends 'Adminstrator/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table td,
+        table th {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background: #007bff;
+            color: white;
+        }
+
+        select,
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #218838;
+        }
+
+        input[type="reset"] {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        input[type="reset"]:hover {
+            background: #c82333;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            color: white;
+            margin-right: 5px;
+        }
+
+        a[href*="delete"] {
+            background: #dc3545;
+        }
+
+        a[href*="edit"] {
+            background: #007bff;
+        }
+
+        a:hover {
+            opacity: 0.85;
+        }
+
+        .form-title {
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <table border="2px">
+            <tr>
+                <td>Company</td>
+                <td>
+                    <select name="sel_company" value="{{editdata.company_name}}">
+                        <option value="">--Select Company--</option>
+
+                        {% for i in companydata %}
+                        <option value="{{i.id}}" {% if i.id == editdata.company.id %} selected {% endif %}>
+                            {{i.company_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td> Model</td>
+                <td><input type="text" name="txt_model" value="{{editdata.model_name}}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="submit" name="btn_submit">
+                <input type="reset" name="btn_cancel">
+                </td>
+            </tr>
+        </table>
+        </table>
+        <table border="2px">
+            <tr>
+                <td>SINO</td>
+                <td>Company</td>
+                <td>Model</td>
+                <td>Action</td>
+            </tr>
+            {% for i in modeldata %}
+            <tr>
+                <td>{{ forloop.counter}}</td>
+                <td>{{ i.company.company_name}}</td>
+                <td>{{ i.model_name}}</td>
+                <td><a href="{% url 'Admin:modeldelete' i.id %}">Delete</a>
+                <a href="{% url 'Admin:modeledit' i.id %}">Edit</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+</html>
+{% endblock content %}
+  
